@@ -15,10 +15,15 @@ public class AdministrateurRepositoryImpl implements AdministrateurRepository {
     @Override
     public Administrateur save(Administrateur administrateur) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(administrateur);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.persist(administrateur);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
         return administrateur;
     }
 
@@ -43,19 +48,29 @@ public class AdministrateurRepositoryImpl implements AdministrateurRepository {
     @Override
     public Administrateur update(Administrateur administrateur) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Administrateur updatedAdministrateur = em.merge(administrateur);
-        em.getTransaction().commit();
-        em.close();
-        return updatedAdministrateur;
+        try {
+            em.getTransaction().begin();
+            em.merge(administrateur);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        return administrateur;
     }
 
     @Override
     public void delete(Administrateur administrateur) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.remove(em.contains(administrateur) ? administrateur : em.merge(administrateur));
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.remove(em.contains(administrateur) ? administrateur : em.merge(administrateur));
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
     }
 }

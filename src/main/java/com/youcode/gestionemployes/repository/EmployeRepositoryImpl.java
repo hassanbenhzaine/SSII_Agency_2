@@ -15,10 +15,15 @@ public class EmployeRepositoryImpl implements EmployeRepository {
     @Override
     public Employe save(Employe employe) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(employe);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.persist(employe);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
         return employe;
     }
 
@@ -43,19 +48,29 @@ public class EmployeRepositoryImpl implements EmployeRepository {
     @Override
     public Employe update(Employe employe) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Employe updatedEmploye = em.merge(employe);
-        em.getTransaction().commit();
-        em.close();
-        return updatedEmploye;
+        try {
+            em.getTransaction().begin();
+            em.merge(employe);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        return employe;
     }
 
     @Override
     public void delete(Employe employe) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.remove(em.contains(employe) ? employe : em.merge(employe));
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.remove(em.contains(employe) ? employe : em.merge(employe));
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
     }
 }
