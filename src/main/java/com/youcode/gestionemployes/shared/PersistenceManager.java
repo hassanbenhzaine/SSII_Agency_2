@@ -8,16 +8,11 @@ public class PersistenceManager {
     private static EntityManagerFactory emf;
 
     public static EntityManagerFactory getEntityManagerFactory() {
-        if (emf == null) {
-            emf = Persistence
-                    .createEntityManagerFactory(PERSISTANCE_UNIT_NAME);
-        }
+        if (emf == null) emf = Persistence.createEntityManagerFactory(PERSISTANCE_UNIT_NAME);
         return emf;
     }
 
     public static void close() {
-        if (emf != null) {
-            emf.close();
-        }
+        if (emf != null) emf.close();
     }
 }
