@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class AdministrateurRepositoryImpl implements AdministrateurRepository {
+public class AdministrateurRepositoryImpl implements IAdministrateurRepository {
     private final EntityManagerFactory emf = PersistenceManager.getEntityManagerFactory();
 
     @Override
@@ -65,7 +65,7 @@ public class AdministrateurRepositoryImpl implements AdministrateurRepository {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.remove(em.contains(administrateur) ? administrateur : em.merge(administrateur));
+            em.remove(em.merge(administrateur));
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();

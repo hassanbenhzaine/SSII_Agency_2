@@ -1,20 +1,15 @@
 //package com.youcode.gestionemployes.entity;
 //
 //import jakarta.persistence.*;
-//import lombok.AllArgsConstructor;
-//import lombok.Builder;
-//import lombok.Data;
-//import lombok.NoArgsConstructor;
+//import lombok.*;
 //
 //@AllArgsConstructor
 //@NoArgsConstructor
-//@Data
+//@Getter
+//@Setter @ToString
 //@Builder
-//@Entity
+//@Embeddable
 //public class Adresse {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer id;
 //    private String rue;
 //    private String ville;
 //    @Column(name = "code_postal")

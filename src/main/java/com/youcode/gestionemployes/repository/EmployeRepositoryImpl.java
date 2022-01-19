@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class EmployeRepositoryImpl implements EmployeRepository {
+public class EmployeRepositoryImpl implements IEmployeRepository {
     private final EntityManagerFactory emf = PersistenceManager.getEntityManagerFactory();
 
     @Override
@@ -65,7 +65,7 @@ public class EmployeRepositoryImpl implements EmployeRepository {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.remove(em.contains(employe) ? employe : em.merge(employe));
+            em.remove(em.merge(employe));
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();

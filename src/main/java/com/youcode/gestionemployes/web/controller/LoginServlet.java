@@ -39,7 +39,9 @@ public class LoginServlet extends HttpServlet {
             context.setVariable("error", "Email ou mot de passe invalide");
             te.process("login", context, resp.getWriter());
         } else {
+            System.out.println(email);
             Utilisateur utilisateur = utilisateurService.findByEmail(email);
+            System.out.println(utilisateur);
             if (utilisateur != null && utilisateur.getPassword().equals(password)) {
                 req.getSession().setAttribute("utilisateur", utilisateur);
                 resp.sendRedirect("/manage-employes");

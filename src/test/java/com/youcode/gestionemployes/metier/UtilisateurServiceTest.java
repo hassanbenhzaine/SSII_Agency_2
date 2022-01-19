@@ -1,5 +1,6 @@
 package com.youcode.gestionemployes.metier;
 
+import com.youcode.gestionemployes.entity.GenderType;
 import com.youcode.gestionemployes.entity.Utilisateur;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
@@ -38,6 +39,8 @@ class UtilisateurServiceTest {
                         String.valueOf(new Random().nextInt(0, 99999999))
                 ))
                 .status(new Random().nextBoolean())
+                .genderType(GenderType.values()[new Random().nextInt(GenderType.values().length)])
+                .age((short) new Random().nextInt(18, 100))
                 .build();
     }
 
@@ -54,6 +57,9 @@ class UtilisateurServiceTest {
     void update() {
         // given
         Utilisateur savedUtilisateur = utilisateurService.save(utilisateur);
+        savedUtilisateur.setPassword("updatedPassword");
+        savedUtilisateur.setFirstName("updatedFirstName");
+        savedUtilisateur.setLastName("updatedLastName");
         // when
         Utilisateur updatedUtilisateur = utilisateurService.update(savedUtilisateur);
         // then
@@ -95,7 +101,8 @@ class UtilisateurServiceTest {
         //given
         Utilisateur savedUtilisateur = utilisateurService.save(utilisateur);
         // when
-        Utilisateur foundUtilisateur = utilisateurService.findByEmail(utilisateur.getEmail());
+        Utilisateur foundUtilisateur = utilisateurService.findByEmail("cbenhzaine@gmail.com");
+        System.out.println(foundUtilisateur);
         // then
         assertEquals(savedUtilisateur.getEmail(), foundUtilisateur.getEmail());
     }

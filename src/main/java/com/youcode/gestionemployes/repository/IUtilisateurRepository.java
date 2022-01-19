@@ -5,6 +5,6 @@ import com.youcode.gestionemployes.entity.Utilisateur;
 
 import java.util.Optional;
 
-public interface UtilisateurRepository extends GenericDAO<Utilisateur, Integer> {
+public interface IUtilisateurRepository extends GenericDAO<Utilisateur, Integer> {
     Optional<Utilisateur> findByEmail(String email);
 }

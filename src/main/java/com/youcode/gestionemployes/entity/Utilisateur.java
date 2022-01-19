@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
@@ -20,9 +19,10 @@ import java.time.LocalDate;
         @NamedQuery(name = "Utilisateur.findByEmail",
                 query = "SELECT a FROM utilisateurs a WHERE a.email = :email")
 })
-public class Utilisateur implements Serializable {
+public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column(updatable = false)
     private Integer id;
     @Column(unique = true)
     private String email;
@@ -37,7 +37,12 @@ public class Utilisateur implements Serializable {
     private String phone;
     @Column(columnDefinition = "boolean default false")
     private Boolean status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private GenderType genderType;
+    private Short age;
 
-//    @OneToMany
-//    private List<Adresse> adresses;
+//    @ElementCollection
+//    private List<Adresse> adresses = new HashSet<>();
+
 }
