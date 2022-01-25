@@ -39,7 +39,7 @@ class UtilisateurServiceTest {
                         String.valueOf(new Random().nextInt(0, 99999999))
                 ))
                 .status(new Random().nextBoolean())
-                .genderType(GenderType.values()[new Random().nextInt(GenderType.values().length)])
+                .gender(GenderType.values()[new Random().nextInt(GenderType.values().length)])
                 .age((short) new Random().nextInt(18, 100))
                 .build();
     }
@@ -48,42 +48,42 @@ class UtilisateurServiceTest {
     void save() {
         // given
         // when
-        Utilisateur savedUtilisateur = utilisateurService.save(utilisateur);
+        utilisateurService.save(utilisateur);
         // then
-        assertEquals(savedUtilisateur, utilisateurService.findById(savedUtilisateur.getId()));
+        assertEquals(utilisateur, utilisateurService.findById(utilisateur.getId()));
     }
 
     @Test
     void update() {
         // given
-        Utilisateur savedUtilisateur = utilisateurService.save(utilisateur);
-        savedUtilisateur.setPassword("updatedPassword");
-        savedUtilisateur.setFirstName("updatedFirstName");
-        savedUtilisateur.setLastName("updatedLastName");
+        utilisateurService.save(utilisateur);
+        utilisateur.setPassword("updatedPassword");
+        utilisateur.setFirstName("updatedFirstName");
+        utilisateur.setLastName("updatedLastName");
         // when
-        Utilisateur updatedUtilisateur = utilisateurService.update(savedUtilisateur);
+        Utilisateur updatedUtilisateur = utilisateurService.update(utilisateur);
         // then
-        assertEquals(savedUtilisateur, updatedUtilisateur);
+        assertEquals(utilisateur, updatedUtilisateur);
     }
 
     @Test
     void delete() {
         // given
-        Utilisateur savedUtilisateur = utilisateurService.save(utilisateur);
+        utilisateurService.save(utilisateur);
         // when
-        utilisateurService.delete(savedUtilisateur);
+        utilisateurService.delete(utilisateur);
         // then
-        assertNull(utilisateurService.findById(savedUtilisateur.getId()));
+        assertNull(utilisateurService.findById(utilisateur.getId()));
     }
 
     @Test
     void findById() {
         // given
-        Utilisateur savedUtilisateur = utilisateurService.save(utilisateur);
+        utilisateurService.save(utilisateur);
         // when
-        Utilisateur foundUtilisateur = utilisateurService.findById(savedUtilisateur.getId());
+        Utilisateur foundUtilisateur = utilisateurService.findById(utilisateur.getId());
         // then
-        assertEquals(savedUtilisateur.getId(), foundUtilisateur.getId());
+        assertEquals(utilisateur.getId(), foundUtilisateur.getId());
     }
 
     @Test
@@ -99,11 +99,11 @@ class UtilisateurServiceTest {
     @Test
     void findByEmail() {
         //given
-        Utilisateur savedUtilisateur = utilisateurService.save(utilisateur);
+        utilisateurService.save(utilisateur);
         // when
-        Utilisateur foundUtilisateur = utilisateurService.findByEmail("cbenhzaine@gmail.com");
+        Utilisateur foundUtilisateur = utilisateurService.findByEmail(utilisateur.getEmail());
         System.out.println(foundUtilisateur);
         // then
-        assertEquals(savedUtilisateur.getEmail(), foundUtilisateur.getEmail());
+        assertEquals(utilisateur.getEmail(), foundUtilisateur.getEmail());
     }
 }

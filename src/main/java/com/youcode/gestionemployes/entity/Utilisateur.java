@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
@@ -15,12 +17,14 @@ import java.time.LocalDate;
 @Entity(name = "utilisateurs")
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
-        @NamedQuery(name = "Utilisateur.findAll", query = "SELECT a FROM utilisateurs a"),
+        @NamedQuery(name = "Utilisateur.findAll", query = "FROM utilisateurs"),
         @NamedQuery(name = "Utilisateur.findByEmail",
-                query = "SELECT a FROM utilisateurs a WHERE a.email = :email")
+                query = "FROM utilisateurs WHERE email = :email")
 })
-public class Utilisateur {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Utilisateur implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -4794813872135444785L;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
     @Column(updatable = false)
     private Integer id;
@@ -38,8 +42,8 @@ public class Utilisateur {
     @Column(columnDefinition = "boolean default false")
     private Boolean status;
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender")
-    private GenderType genderType;
+    @Column(name = "gender", length = 1)
+    private GenderType gender;
     private Short age;
 
 //    @ElementCollection

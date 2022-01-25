@@ -20,8 +20,8 @@ public class AdministrateurService extends UtilisateurService {
     }
 
     @Override
-    public Administrateur save(Utilisateur administrateur) {
-        return IAdministrateurRepository.save((Administrateur) administrateur);
+    public void save(Utilisateur administrateur) {
+        IAdministrateurRepository.save((Administrateur) administrateur);
     }
 
     @Override

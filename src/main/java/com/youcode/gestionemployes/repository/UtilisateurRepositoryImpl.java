@@ -13,7 +13,7 @@ public class UtilisateurRepositoryImpl implements IUtilisateurRepository {
     private final EntityManagerFactory emf = PersistenceManager.getEntityManagerFactory();
 
     @Override
-    public Utilisateur save(Utilisateur utilisateur) {
+    public void save(Utilisateur utilisateur) {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -24,7 +24,6 @@ public class UtilisateurRepositoryImpl implements IUtilisateurRepository {
         } finally {
             em.close();
         }
-        return utilisateur;
     }
 
     @Override
@@ -50,7 +49,7 @@ public class UtilisateurRepositoryImpl implements IUtilisateurRepository {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.merge(utilisateur);
+            utilisateur = em.merge(utilisateur);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();

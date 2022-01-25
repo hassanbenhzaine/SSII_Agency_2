@@ -46,39 +46,42 @@ class AdministrateurServiceTest {
     void save() {
         // given
         // when
-        Administrateur savedAdministrateur = administrateurService.save(administrateur);
+        administrateurService.save(administrateur);
         // then
-        assertEquals(savedAdministrateur, administrateurService.findById(savedAdministrateur.getId()));
+        assertEquals(administrateur, administrateurService.findById(administrateur.getId()));
     }
 
     @Test
     void update() {
         // given
-        Administrateur savedAdministrateur = administrateurService.save(administrateur);
+        administrateurService.save(administrateur);
+        administrateur.setPassword("updatedPassword");
+        administrateur.setFirstName("updatedFirstName");
+        administrateur.setXccc("abc");
         // when
-        Administrateur updatedUtilisateur = administrateurService.update(savedAdministrateur);
+        Administrateur updatedAdministrateur = administrateurService.update(administrateur);
         // then
-        assertEquals(savedAdministrateur, updatedUtilisateur);
+        assertEquals(administrateur, updatedAdministrateur);
     }
 
     @Test
     void delete() {
         // given
-        Administrateur savedAdministrateur = administrateurService.save(administrateur);
+        administrateurService.save(administrateur);
         // when
-        administrateurService.delete(savedAdministrateur);
+        administrateurService.delete(administrateur);
         // then
-        assertNull(administrateurService.findById(savedAdministrateur.getId()));
+        assertNull(administrateurService.findById(administrateur.getId()));
     }
 
     @Test
     void findById() {
         // given
-        Administrateur savedAdministrateur = administrateurService.save(administrateur);
+        administrateurService.save(administrateur);
         // when
-        Administrateur foundAdministrateur = administrateurService.findById(savedAdministrateur.getId());
+        Administrateur foundAdministrateur = administrateurService.findById(administrateur.getId());
         // then
-        assertEquals(savedAdministrateur.getId(), foundAdministrateur.getId());
+        assertEquals(administrateur.getId(), foundAdministrateur.getId());
     }
 
     @Test

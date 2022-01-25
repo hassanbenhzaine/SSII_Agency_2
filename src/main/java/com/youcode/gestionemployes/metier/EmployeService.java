@@ -20,8 +20,8 @@ public class EmployeService extends UtilisateurService {
     }
 
     @Override
-    public Employe save(Utilisateur employe) {
-        return IEmployeRepository.save((Employe) employe);
+    public void save(Utilisateur employe) {
+        IEmployeRepository.save((Employe) employe);
     }
 
     @Override

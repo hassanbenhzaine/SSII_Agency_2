@@ -27,8 +27,12 @@ class EmployeServiceTest {
                 .password("passwd".concat(
                         String.valueOf(new Random().nextInt(100, 999))
                 ))
-                .firstName("firstName")
-                .lastName("lastName")
+                .firstName("firstName".concat(String.valueOf(
+                        new Random().nextInt(0, 100)
+                )))
+                .lastName("lastName".concat(String.valueOf(
+                        new Random().nextInt(0, 100)
+                )))
                 .dateOfBirth(LocalDate.of(
                         new Random().nextInt(1950, 2021),
                         new Random().nextInt(1, 12),
@@ -47,45 +51,45 @@ class EmployeServiceTest {
     void save() {
         // given
         // when
-        Employe savedEmploye = employeService.save(employe);
+        employeService.save(employe);
         // then
-        assertEquals(savedEmploye, employeService.findById(savedEmploye.getId()));
+        assertEquals(employe, employeService.findById(employe.getId()));
     }
 
     @Test
     void update() {
         // given
-        Employe savedEmploye = employeService.save(employe);
+        employeService.save(employe);
         // when
-        Employe updatedUtilisateur = employeService.update(savedEmploye);
+        Employe updatedUtilisateur = employeService.update(employe);
         // then
-        assertEquals(savedEmploye, updatedUtilisateur);
+        assertEquals(employe, updatedUtilisateur);
     }
 
     @Test
     void delete() {
         // given
-        Employe savedEmploye = employeService.save(employe);
+        employeService.save(employe);
         // when
-        employeService.delete(savedEmploye);
+        employeService.delete(employe);
         // then
-        assertNull(employeService.findById(savedEmploye.getId()));
+        assertNull(employeService.findById(employe.getId()));
     }
 
     @Test
     void findById() {
         // given
-        Employe savedEmploye = employeService.save(employe);
+        employeService.save(employe);
         // when
-        Employe foundEmploye = employeService.findById(savedEmploye.getId());
+        Employe foundEmploye = employeService.findById(employe.getId());
         // then
-        assertEquals(savedEmploye.getId(), foundEmploye.getId());
+        assertEquals(employe.getId(), foundEmploye.getId());
     }
 
     @Test
     void findAll() {
         //given
-        Employe savedEmploye = employeService.save(employe);
+        employeService.save(employe);
         //when
         Collection<? extends Employe> foundEmployeList = employeService.findAll();
         //then

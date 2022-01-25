@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface GenericDAO<T, PK extends Serializable> {
-    T save(T t);
+    void save(T t);
 
     Optional<T> findById(PK id);
 

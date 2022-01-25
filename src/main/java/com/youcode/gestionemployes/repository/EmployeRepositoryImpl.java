@@ -13,7 +13,7 @@ public class EmployeRepositoryImpl implements IEmployeRepository {
     private final EntityManagerFactory emf = PersistenceManager.getEntityManagerFactory();
 
     @Override
-    public Employe save(Employe employe) {
+    public void save(Employe employe) {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -24,7 +24,6 @@ public class EmployeRepositoryImpl implements IEmployeRepository {
         } finally {
             em.close();
         }
-        return employe;
     }
 
     @Override
@@ -50,7 +49,7 @@ public class EmployeRepositoryImpl implements IEmployeRepository {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.merge(employe);
+            employe = em.merge(employe);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();

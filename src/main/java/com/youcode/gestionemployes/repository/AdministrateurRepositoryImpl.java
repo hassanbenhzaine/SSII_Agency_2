@@ -13,7 +13,7 @@ public class AdministrateurRepositoryImpl implements IAdministrateurRepository {
     private final EntityManagerFactory emf = PersistenceManager.getEntityManagerFactory();
 
     @Override
-    public Administrateur save(Administrateur administrateur) {
+    public void save(Administrateur administrateur) {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -24,7 +24,6 @@ public class AdministrateurRepositoryImpl implements IAdministrateurRepository {
         } finally {
             em.close();
         }
-        return administrateur;
     }
 
     @Override
@@ -50,7 +49,7 @@ public class AdministrateurRepositoryImpl implements IAdministrateurRepository {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.merge(administrateur);
+            administrateur = em.merge(administrateur);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();

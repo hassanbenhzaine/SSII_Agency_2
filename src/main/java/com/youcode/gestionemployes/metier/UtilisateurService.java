@@ -13,8 +13,8 @@ public class UtilisateurService {
         IUtilisateurRepository = new UtilisateurRepositoryImpl();
     }
 
-    public Utilisateur save(Utilisateur utilisateur) {
-        return IUtilisateurRepository.save(utilisateur);
+    public void save(Utilisateur utilisateur) {
+        IUtilisateurRepository.save(utilisateur);
     }
 
     public Utilisateur update(Utilisateur utilisateur) {

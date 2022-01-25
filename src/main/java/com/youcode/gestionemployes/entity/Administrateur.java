@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
+
 
 @Data
 @SuperBuilder
@@ -15,7 +17,9 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Entity(name = "administrateurs")
 @PrimaryKeyJoinColumn(name = "administrateur_id")
-@NamedQuery(name = "Administrateur.findAll", query = " SELECT a FROM administrateurs a")
+@NamedQuery(name = "Administrateur.findAll", query = "FROM administrateurs")
 public class Administrateur extends Utilisateur {
+    @Serial
+    private static final long serialVersionUID = 117454118301540503L;
     private String xccc;
 }
