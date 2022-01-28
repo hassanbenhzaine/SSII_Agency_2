@@ -12,6 +12,7 @@ import java.io.IOException;
 
 @WebServlet(name = "LogoutServlet", value = "/logout")
 public class LogoutServlet extends HttpServlet {
+    private static final long serialVersionUID = -3202187898423062160L;
     private TemplateEngine te;
 
     @Override
@@ -22,6 +23,6 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.getSession().invalidate();
-        resp.sendRedirect("/login");
+        resp.sendRedirect(req.getContextPath().concat("/login"));
     }
 }

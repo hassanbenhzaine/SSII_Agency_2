@@ -16,6 +16,7 @@ import java.time.LocalDate;
 
 @WebServlet(name = "AddEmployeServlet", value = "/add-employe")
 public class AddEmployeServlet extends HttpServlet {
+    private static final long serialVersionUID = 1863227963442669583L;
     private TemplateEngine te;
     private EmployeService employeService;
 
@@ -49,6 +50,6 @@ public class AddEmployeServlet extends HttpServlet {
                 .build();
 
         employeService.save(employe);
-        resp.sendRedirect("/manage-employes");
+        resp.sendRedirect(req.getContextPath().concat("/manage-employes"));
     }
 }

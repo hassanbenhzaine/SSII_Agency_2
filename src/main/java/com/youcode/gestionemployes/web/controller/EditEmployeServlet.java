@@ -16,6 +16,7 @@ import java.time.LocalDate;
 
 @WebServlet(name = "EditEmployeServlet", value = "/edit-employe")
 public class EditEmployeServlet extends HttpServlet {
+    private static final long serialVersionUID = -4285950653289685199L;
     private EmployeService employeService;
     private TemplateEngine te;
 
@@ -36,7 +37,7 @@ public class EditEmployeServlet extends HttpServlet {
             context.setVariable("lastName", utilisateur.getLastName());
             context.setVariable("employeToEdit", employeToEdit);
             te.process("editEmploye", context, resp.getWriter());
-        } else resp.sendRedirect("/manage-employes");
+        } else resp.sendRedirect(req.getContextPath().concat("/manage-employes"));
     }
 
     @Override
@@ -58,6 +59,6 @@ public class EditEmployeServlet extends HttpServlet {
             foundEmploye.setEmail(req.getParameter("email"));
             employeService.update(foundEmploye);
         }
-        resp.sendRedirect("/manage-employes");
+        resp.sendRedirect(req.getContextPath().concat("/manage-employes"));
     }
 }

@@ -14,6 +14,7 @@ import java.io.IOException;
 
 @WebServlet(name = "ChangePasswordServlet", value = "/change-password")
 public class ChangePasswordServlet extends HttpServlet {
+    private static final long serialVersionUID = -2050527651609547061L;
     private UtilisateurService utilisateurService;
     private TemplateEngine te;
 
@@ -44,7 +45,7 @@ public class ChangePasswordServlet extends HttpServlet {
             if (newPassword.equals(repeatPassword)) {
                 utilisateur.setPassword(newPassword);
                 utilisateurService.update(utilisateur);
-                resp.sendRedirect("/manage-employes");
+                resp.sendRedirect(req.getContextPath().concat("/manage-employes"));
             } else {
                 context.setVariable("error", "Les nouveaux mots de passe ne correspondent pas");
                 te.process("changePassword", context, resp.getWriter());

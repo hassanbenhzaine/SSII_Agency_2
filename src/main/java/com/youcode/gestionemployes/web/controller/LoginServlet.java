@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 
 @WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
+    private static final long serialVersionUID = -7981866110922019133L;
     private UtilisateurService utilisateurService;
     private TemplateEngine te;
 
@@ -44,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             System.out.println(utilisateur);
             if (utilisateur != null && utilisateur.getPassword().equals(password)) {
                 req.getSession().setAttribute("utilisateur", utilisateur);
-                resp.sendRedirect("/manage-employes");
+                resp.sendRedirect(req.getContextPath().concat("/manage-employes"));
             } else {
                 context.setVariable("error", "Email ou mot de passe incorrect");
                 te.process("login", context, resp.getWriter());

@@ -20,7 +20,7 @@ public class AuthenticationFilter implements Filter {
         if (req.getSession(false) != null) {
             chain.doFilter(request, response);
         } else {
-            resp.sendRedirect("/login");
+            resp.sendRedirect(req.getContextPath().concat("/login"));
         }
     }
 }
