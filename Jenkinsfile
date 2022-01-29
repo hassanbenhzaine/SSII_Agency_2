@@ -11,8 +11,8 @@ pipeline{
         stage('Build') {
 
             steps {
-                sh 'docker build -t gestionemployes .'
-                sh 'docker tag gestionemployes hassanbenhzaine/gestionemployes'
+                sh 'docker build -t gestionemployes:latest .'
+                sh 'docker tag gestionemployes:latest hassanbenhzaine/gestionemployes:latest'
             }
         }
 
@@ -26,7 +26,7 @@ pipeline{
         stage('Push') {
 
             steps {
-                sh 'docker push hassanbenhzaine/gestionemployes'
+                sh 'docker push hassanbenhzaine/gestionemployesv1:latest'
             }
         }
     }
