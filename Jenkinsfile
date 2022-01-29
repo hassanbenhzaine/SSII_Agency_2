@@ -7,13 +7,8 @@ pipeline{
 	}
 
 	stages {
-         stage('Initialize'){
-                def dockerHome = tool 'dockerHassan'
-                env.PATH = "${dockerHome}/bin:${env.PATH}"
-            }
 
 		stage('Build') {
-
 
 			steps {
 				sh 'docker build -t hassanbenhzaine/gestionemployes:latest .'
