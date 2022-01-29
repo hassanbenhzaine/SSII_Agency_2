@@ -12,7 +12,7 @@ pipeline{
 
             steps {
                 sh 'docker build -t gestionemployes:latest .'
-                sh 'docker tag gestionemployes:latest hassanbenhzaine/gestionemployes:latest'
+                sh 'docker tag gestionemployes:latest hassanbenhzaine/gestionemployesv1:latest'
             }
         }
 
