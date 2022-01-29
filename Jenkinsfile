@@ -1,5 +1,4 @@
 pipeline{
-
     agent any
 
     environment {
@@ -7,23 +6,24 @@ pipeline{
     }
 
     stages {
-
-        stage('Build') {
-
+        stage('Build project with Maven') {
             steps {
-                sh 'docker build -t gestionemployes:latest .'
-                sh 'docker tag gestionemployes:latest hassanbenhzaine/gestionemployesv1:latest'
+                sh 'mvn clean install'
             }
         }
 
-        stage('Login') {
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t hassanbenhzaine/gestionemployesv1:latest .'
+            }
+        }
+        stage('Login to Docker Hub') {
 
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
-
-        stage('Push') {
+        stage('Push to Docker Hub') {
 
             steps {
                 sh 'docker push hassanbenhzaine/gestionemployesv1:latest'
