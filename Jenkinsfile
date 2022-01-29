@@ -1,33 +1,39 @@
 pipeline{
 
-	agent any
+    agent any
 
-	environment {
-		DOCKERHUB_CREDENTIALS=credentials('docker-hassanbenhzaine')
-	}
+    environment {
+        DOCKERHUB_CREDENTIALS=credentials('docker-hassanbenhzaine')
+    }
 
-	stages {
+    stages {
 
-		stage('Build') {
+        stage('Build') {
 
-			steps {
-				sh 'docker build -t gestionemployes .'
-				sh 'docker tag gestionemployes hassanbenhzaine/gestionemployes'
-			}
-		}
+            steps {
+                sh 'docker build -t gestionemployes .'
+                sh 'docker tag gestionemployes hassanbenhzaine/gestionemployes'
+            }
+        }
 
-		stage('Login') {
+        stage('Login') {
 
-			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-			}
-		}
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
 
-		stage('Push') {
+        stage('Push') {
 
-			steps {
-				sh 'docker push hassanbenhzaine/gestionemployes'
-			}
+            steps {
+                sh 'docker push hassanbenhzaine/gestionemployes'
+            }
+        }
+    }
+
+	post {
+		always {
+			sh 'docker logout'
 		}
 	}
 
