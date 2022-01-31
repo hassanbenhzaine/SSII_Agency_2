@@ -1,40 +1,22 @@
 pipeline{
     agent any
 
-    environment {
-        DOCKERHUB_CREDENTIALS=credentials('docker-hassanbenhzaine')
-    }
-
     stages {
-        stage('Build project with Maven') {
+        stage('Packaging project') {
             steps {
                 sh 'mvn clean package -DskipTests'
             }
         }
-
-        stage('Build Docker Image') {
+        stage('Build image') {
             steps {
                 sh 'docker build -t hassanbenhzaine/gestionemployesv1:latest .'
             }
         }
-        stage('Login to Docker Hub') {
-
-            steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
-        }
-        stage('Push to Docker Hub') {
-
+        stage('Push') {
             steps {
                 sh 'docker push hassanbenhzaine/gestionemployesv1:latest'
             }
         }
     }
-
-	post {
-		always {
-			sh 'docker logout'
-		}
-	}
 
 }
