@@ -4,7 +4,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-public class TemplateEngineProvider {
+public final class TemplateEngineProvider {
     private static TemplateEngine te;
 
     public static TemplateEngine getTemplateEngine() {

@@ -3,7 +3,7 @@ package com.youcode.gestionemployes.shared;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-public class PersistenceManager {
+public final class PersistenceManager {
     private static final String PERSISTANCE_UNIT_NAME = "GestionEmployesPU";
     private static EntityManagerFactory emf;
 
