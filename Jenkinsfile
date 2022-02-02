@@ -6,24 +6,24 @@ pipeline{
     }
 
     stages {
-        stage('Build project with Maven') {
+        stage('Build Maven') {
             steps {
                 sh 'mvn clean package'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Docker') {
             steps {
                 sh 'docker build -t hassanbenhzaine/gestionemployesv1:latest .'
             }
         }
-        stage('Login to Docker Hub') {
+        stage('Login Docker') {
 
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
-        stage('Push to Docker Hub') {
+        stage('Push Docker') {
 
             steps {
                 sh 'docker push hassanbenhzaine/gestionemployesv1:latest'
