@@ -1,0 +1,28 @@
+services:
+  app:
+    build: .
+    image: gestionemployes
+    ports:
+      - "80:8080"
+    networks:
+      - net
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14.1-alpine
+    ports:
+      - "5432:5432"
+    networks:
+      - net
+    volumes:
+      - dbVolume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=gestionemployes
+
+networks:
+  net: { }
+
+volumes:
+  dbVolume: { }
