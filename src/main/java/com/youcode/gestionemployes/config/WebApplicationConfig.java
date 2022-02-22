@@ -24,10 +24,4 @@ public class WebApplicationConfig extends AbstractAnnotationConfigDispatcherServ
         return new String[]{"/"};
     }
 
-    @Override
-    protected Filter[] getServletFilters() {
-        DelegatingFilterProxy dfp = new DelegatingFilterProxy();
-        dfp.setTargetBeanName("authFilter");
-        return new Filter[]{dfp};
-    }
 }
