@@ -2,16 +2,14 @@ package com.youcode.gestionemployes.metier;
 
 import com.youcode.gestionemployes.entity.Utilisateur;
 import com.youcode.gestionemployes.repository.IUtilisateurRepository;
-import com.youcode.gestionemployes.repository.UtilisateurRepositoryImpl;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-
+@Service
+@RequiredArgsConstructor
 public class UtilisateurService {
     private final IUtilisateurRepository IUtilisateurRepository;
-
-    public UtilisateurService() {
-        IUtilisateurRepository = new UtilisateurRepositoryImpl();
-    }
 
     public void save(Utilisateur utilisateur) {
         IUtilisateurRepository.save(utilisateur);

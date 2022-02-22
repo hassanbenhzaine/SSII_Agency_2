@@ -2,17 +2,19 @@ package com.youcode.gestionemployes.metier;
 
 import com.youcode.gestionemployes.entity.Administrateur;
 import com.youcode.gestionemployes.entity.Utilisateur;
-import com.youcode.gestionemployes.repository.AdministrateurRepositoryImpl;
 import com.youcode.gestionemployes.repository.IAdministrateurRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-
+@Service
 public class AdministrateurService extends UtilisateurService {
     private final IAdministrateurRepository IAdministrateurRepository;
 
-    public AdministrateurService() {
-        IAdministrateurRepository = new AdministrateurRepositoryImpl();
+    public AdministrateurService(com.youcode.gestionemployes.repository.IUtilisateurRepository IUtilisateurRepository, com.youcode.gestionemployes.repository.IAdministrateurRepository iAdministrateurRepository) {
+        super(IUtilisateurRepository);
+        IAdministrateurRepository = iAdministrateurRepository;
     }
+
 
     @Override
     public void delete(Utilisateur administrateur) {

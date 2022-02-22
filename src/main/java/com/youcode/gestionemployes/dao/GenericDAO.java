@@ -3,7 +3,6 @@ package com.youcode.gestionemployes.dao;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Optional;
-
 public interface GenericDAO<T, PK extends Serializable> {
     void save(T t);
 

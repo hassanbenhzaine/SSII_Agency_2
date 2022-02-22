@@ -4,19 +4,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.PrimaryKeyJoinColumn;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 
-@Data
-@SuperBuilder
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity(name = "employes")
-@PrimaryKeyJoinColumn(name = "employe_id")
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString @EqualsAndHashCode @SuperBuilder
+@Entity(name = "employes") @PrimaryKeyJoinColumn(name = "employe_id")
 @NamedQuery(name = "Employe.findAll", query = "FROM employes")
 public class Employe extends Utilisateur {
     @Serial

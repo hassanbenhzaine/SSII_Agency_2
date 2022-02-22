@@ -11,10 +11,10 @@
         <class>com.youcode.gestionemployes.entity.Utilisateur</class>
         <properties>
             <property name="hibernate.show_sql" value="true"/>
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+<!--            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>-->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:postgresql://gestionemployesdb:5432/gestionemployes"/>
+                      value="jdbc:postgresql://localhost:5432/gestionemployes"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="postgres"/>
         </properties>

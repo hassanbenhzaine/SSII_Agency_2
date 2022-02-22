@@ -1,21 +1,15 @@
 package com.youcode.gestionemployes.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@Data
-@SuperBuilder
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity(name = "utilisateurs")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString @EqualsAndHashCode @SuperBuilder
+@Entity(name = "utilisateurs") @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
         @NamedQuery(name = "Utilisateur.findAll", query = "FROM utilisateurs"),
         @NamedQuery(name = "Utilisateur.findByEmail",

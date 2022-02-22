@@ -1,16 +1,19 @@
 package com.youcode.gestionemployes.repository;
 
 import com.youcode.gestionemployes.entity.Administrateur;
-import com.youcode.gestionemployes.shared.PersistenceManager;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
+@RequiredArgsConstructor
 public class AdministrateurRepositoryImpl implements IAdministrateurRepository {
-    private final EntityManagerFactory emf = PersistenceManager.getEntityManagerFactory();
+    private final EntityManagerFactory emf;
 
     @Override
     public void save(Administrateur administrateur) {
