@@ -10,7 +10,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String index() {
-        return "redirect:/utilisateur/login";
+        return "redirect:/employe/manage";
     }
 
 }
