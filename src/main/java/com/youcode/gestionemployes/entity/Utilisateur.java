@@ -6,7 +6,10 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -25,13 +28,18 @@ public class Utilisateur implements Serializable {
     @Id
     @Column(updatable = false)
     private Integer id;
-    @Column(unique = true) @Email(message = "email incorrect")
-    private String email; @NotNull(message = "email not null")
+    @Column(unique = true) @Email(message = "Email invalide")
+    private String email;
+    @NotNull(message = "Le nom est obligatoire")
     private String firstName;
+    @NotNull(message = "Le nom est obligatoire")
     private String lastName;
+    @Size(min = 8, max = 20, message = "Mot de passe doit contenir entre 8 et 20 caractères")
     private String password;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dateOfBirth;
+    @NotNull(message = "Le numéro de téléphone est obligatoire")
+    @Min(value = 0, message = "Le numéro de téléphone doit être positif")
     private String phone;
     @Column(columnDefinition = "boolean default false")
     private Boolean status;

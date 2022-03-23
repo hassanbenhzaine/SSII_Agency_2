@@ -1,4 +1,4 @@
-package com.youcode.gestionemployes.metier;
+package com.youcode.gestionemployes.service;
 
 import com.youcode.gestionemployes.entity.Utilisateur;
 import com.youcode.gestionemployes.repository.IUtilisateurRepository;

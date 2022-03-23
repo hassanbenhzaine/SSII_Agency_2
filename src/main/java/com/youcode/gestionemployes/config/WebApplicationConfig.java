@@ -14,9 +14,7 @@ public class WebApplicationConfig extends AbstractAnnotationConfigDispatcherServ
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{
-                Application.class,
-                PersistenceConfig.class};
+        return new Class[]{Application.class, PersistenceConfig.class};
     }
 
     @Override

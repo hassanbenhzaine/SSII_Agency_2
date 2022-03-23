@@ -1,4 +1,4 @@
-package com.youcode.gestionemployes.controller.filter;
+package com.youcode.gestionemployes.filter;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

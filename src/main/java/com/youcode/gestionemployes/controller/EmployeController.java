@@ -1,23 +1,24 @@
 package com.youcode.gestionemployes.controller;
 
 import com.youcode.gestionemployes.entity.Employe;
-import com.youcode.gestionemployes.entity.Utilisateur;
-import com.youcode.gestionemployes.metier.EmployeService;
+import com.youcode.gestionemployes.service.EmployeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.Collection;
 
-@Controller @RequestMapping("/employe")
+@Controller @RequestMapping("/employe") @SessionAttributes("currentUtilisateur")
 @RequiredArgsConstructor
 public class EmployeController {
     private final EmployeService employeService;
 
-    @GetMapping("/manage")
+    @GetMapping({"/manage", ""})
     public ModelAndView manageView(){
         ModelAndView mv = new ModelAndView();
 
@@ -33,8 +34,12 @@ public class EmployeController {
     }
 
     @PostMapping("/add")
-    public String add(Employe employe) {
-       employeService.save(employe);
+    public String add(@Valid Employe employe, BindingResult bindingResult, Model model) {
+        if(bindingResult.hasErrors()){
+            model.addAttribute("error", bindingResult.getFieldError().getDefaultMessage());
+            return "addEmploye";
+        }
+        employeService.save(employe);
         return "redirect:/employe/manage";
     }
 
@@ -48,8 +53,12 @@ public class EmployeController {
     }
 
     @PostMapping("/edit")
-    public String edit(Employe employe) {
+    public String edit(Employe employe, Errors errors, Model model) {
         employeService.update(employe);
+//        if (errors.hasErrors()) {
+//            model.addAttribute("error", "there is an error");
+//            return "redirect:/employe/edit/" + employe.getId();
+//        }
         return "redirect:/employe/manage";
     }
 
@@ -62,13 +71,6 @@ public class EmployeController {
         return "redirect:/employe/manage";
     }
 
-    @ModelAttribute
-    public void sessionAttributes(Model model, HttpSession httpSession){
-        if(!httpSession.isNew()) {
-            Utilisateur currentUtilisateur = (Utilisateur) httpSession.getAttribute("utilisateur");
-            model.addAttribute("firstName", currentUtilisateur.getFirstName());
-            model.addAttribute("lastName", currentUtilisateur.getLastName());
-        }
-    }
+
 
 }

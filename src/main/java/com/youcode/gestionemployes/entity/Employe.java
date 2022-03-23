@@ -7,6 +7,7 @@ import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import javax.validation.constraints.Max;
 import java.io.Serial;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString @EqualsAndHashCode @SuperBuilder
@@ -17,5 +18,6 @@ public class Employe extends Utilisateur {
     private static final long serialVersionUID = -4144001680744514884L;
     @Column(unique = true)
     private String matricule;
+    @Max(value = 1000L, message = "over salary")
     private Double salaire;
 }

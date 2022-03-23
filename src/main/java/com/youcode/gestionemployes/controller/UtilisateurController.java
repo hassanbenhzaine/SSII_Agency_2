@@ -1,7 +1,7 @@
 package com.youcode.gestionemployes.controller;
 
 import com.youcode.gestionemployes.entity.Utilisateur;
-import com.youcode.gestionemployes.metier.UtilisateurService;
+import com.youcode.gestionemployes.service.UtilisateurService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
-@Controller @RequestMapping("/utilisateur")
+@Controller @RequestMapping("/utilisateur") @SessionAttributes("currentUtilisateur")
 @RequiredArgsConstructor
 public class UtilisateurController {
     private final UtilisateurService utilisateurService;
@@ -26,7 +26,7 @@ public class UtilisateurController {
         ModelAndView mv = new ModelAndView();
         Utilisateur foundUtilisateur = utilisateurService.findByEmail(utilisateur.getEmail());
         if (foundUtilisateur != null && foundUtilisateur.getPassword().equals(utilisateur.getPassword())) {
-            httpSession.setAttribute("utilisateur", foundUtilisateur);
+            httpSession.setAttribute("currentUtilisateur", foundUtilisateur);
             mv.setViewName("redirect:/employe/manage");
         } else {
             mv.addObject("error", "Email ou mot de passe incorrect");
@@ -41,12 +41,13 @@ public class UtilisateurController {
     }
 
     @PostMapping("/changepassword")
-    public ModelAndView changePasswordView(@RequestParam Map<String,String> passwords, HttpSession httpSession) {
+    public ModelAndView changePasswordView(@RequestParam Map<String, String> passwords, HttpSession httpSession) {
         ModelAndView mv = new ModelAndView();
-        Utilisateur currentUtilisateur = (Utilisateur) httpSession.getAttribute("utilisateur");
+        Utilisateur currentUtilisateur = (Utilisateur) httpSession.getAttribute("currentUtilisateur");
         String oldPassword = passwords.get("oldPassword");
-        String newPassword = passwords.get("newPassword");
+        String newPassword = passwords.get("password");
         String repeatPassword = passwords.get("repeatPassword");
+        System.out.println(passwords);
 
         if (oldPassword.equals(currentUtilisateur.getPassword())) {
             if (newPassword.equals(repeatPassword)) {
@@ -67,21 +68,9 @@ public class UtilisateurController {
 
     @GetMapping("/logout")
     public String logout(HttpSession httpSession) {
+        httpSession.setAttribute("currentUtilisateur", null);
         httpSession.invalidate();
-       return "redirect:/utilisateur/login";
+       return "redirect:login";
     }
-
-//    @ModelAttribute
-//    public void sessionAttributes(Model model, HttpSession httpSession){
-//        if(!httpSession.isNew()) {
-//            Utilisateur currentUtilisateur = (Utilisateur) httpSession.getAttribute("utilisateur");
-//            model.addAttribute("firstName", currentUtilisateur.getFirstName());
-//            model.addAttribute("lastName", currentUtilisateur.getLastName());
-//        }
-//    }
-
-
-
-
 
 }
